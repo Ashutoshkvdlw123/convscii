@@ -1,0 +1,29 @@
+{% extends "template.html" %}
+{% block content %}
+
+<h1>Text Convert History</h1>
+<small>See <a href="#">Image Converted History</a></small>
+
+{% for text_item in text_items %}
+    <div class="row" style="width:100%;padding-bottom:30px;">
+      <div class="btn-group" role="group" aria-label="Text Item">
+      <button type="button" class="btn btn-outline-secondary">{{ text_item.id }}</button>
+      <button type="button" class="btn btn-outline-info">{{ text_item.dt }}</button>
+      <button type="button" class="btn btn-outline-warning">{{ text_item.font }}</button>
+      <button type="button" class="btn btn-outline-success" type="button" data-toggle="collapse" data-target="#{{ text_item.dt }}">
+        {% if text_item.text|length > 10 %}
+          {{ text_item.text[0:10] }}
+        {% else %}
+          {{ text_item.text }}
+        {% endif %}
+      </button>
+    </div>
+    <div class="collapse" id="{{ text_item.dt }}">
+        <div class="card card-body">
+            {{ text_item.text }}
+        </div>
+    </div>
+    </div>
+{% endfor %}
+
+{% endblock content %}

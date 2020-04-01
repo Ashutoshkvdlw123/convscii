@@ -1,0 +1,4 @@
+flask
+pyfiglet
+flask-wtf
+flask-sqlalchemy

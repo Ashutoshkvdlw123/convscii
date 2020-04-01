@@ -1,0 +1,49 @@
+{% extends "template.html" %}
+{% block content %}
+
+<h1>Convert Text</h1>
+<p>Convert text to amazing ASCII art in any font!</p>
+<hr>
+<div>
+    <form method="post" action="{{ url_for('convert_text') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.text.label }}
+            {{ form.text(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.font.label }}
+            {{ form.font(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-outline-info") }}
+    </form>
+    <div style="padding-top: 50px;">
+        <h3>ASCII Art <button onclick="cpArt()" id="cp-art-btn" class="btn btn-sm btn-success">Copy to clipboard</button></h3>
+        <hr>
+        <pre style="font-size: 12px; color: #E87136; font-weight:bold; width: 100%;" id="art">{{ art }}</pre>
+    </div>
+</div>
+
+{% endblock content %}
+{% block js %}
+
+<script type="text/javascript">
+    var $body = document.getElementsByTagName('body')[0];
+
+    var copyToClipboard = function(secretInfo) {
+        var $tempInput = document.createElement('INPUT');
+        $body.appendChild($tempInput);
+        $tempInput.setAttribute('value', secretInfo)
+        $tempInput.select();
+        document.execCommand('copy');
+        $body.removeChild($tempInput);
+      }
+
+    function cpArt(){
+        copyToClipboard($("pre#art").text())
+        console.log($("pre#art").text());
+        document.getElementById("cp-art-btn").innerHTML = "Copied!";
+    }
+</script>
+
+{% endblock js %}
